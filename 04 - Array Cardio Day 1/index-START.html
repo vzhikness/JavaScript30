@@ -32,27 +32,67 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+    const fifteen = inventors.filter(el => el.year >= 1500 && el.year < 1600);
+    console.table(fifteen);
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+
+    const fullNames = inventors.map(el => `${el.first} ${el.last}`);
+    console.log(fullNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+    console.table(ordered);
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
 
+    const yearsLived = inventors.reduce((total, inventor) => total + inventor.passed - inventor.year, 0);
+    console.log(yearsLived) 
+
     // 5. Sort the inventors by years lived
+
+    const yearsLivedSorted = inventors.map(el => {
+      return {
+        first: el.first,
+        last: el.last,
+        age: el.passed - el.year
+      };
+    }).sort((a, b) => a.age > b.age ? -1 : 1);
+    console.table(yearsLivedSorted);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // let category = document.querySelector('.mw-category');
+    // let links = [...category.querySelectorAll('a')];
+    // let de = links.map(el => el.textContent).filter(el => el.indexOf('de') !== -1);
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const peopleSorted = people.sort((a, b) => {
+      const [aLast, aFirst] = a.split(', ');
+      const [bLast, bFirst] = b.split(', ');
+      return aLast > bLast ? 1 : -1;
+    });
+    console.log(peopleSorted);
+    
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const dataCounts = data.reduce((counts, item) => {
+      if (!counts[item]) {
+        counts[item] = 0;
+      }
+      counts[item]++;
+      return counts;
+    }, {});
+    console.log(dataCounts);
 
   </script>
 </body>
